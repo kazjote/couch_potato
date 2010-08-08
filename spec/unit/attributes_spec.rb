@@ -5,6 +5,7 @@ class Plant
   property :leaf_count
   property :typed_leaf_count, :type => Fixnum
   property :typed_leaf_size,  :type => Float
+  property :name, :stringify_name => true
 end
 
 describe "attributes" do
@@ -18,9 +19,18 @@ describe "attributes" do
   end
 
   describe "attributes" do
+    before(:each) do
+      @plant = Plant.new(:leaf_count => 1)
+    end
+
     it "should return the attributes" do
-      plant = Plant.new(:leaf_count => 1)
-      plant.attributes.should == {:leaf_count => 1, :created_at => nil, :updated_at => nil, :typed_leaf_count => nil, :typed_leaf_size => nil}
+      @plant.attributes.should == {:leaf_count => 1, :created_at => nil, :updated_at => nil, :typed_leaf_count => nil, :typed_leaf_size => nil, "_attachments" => {}, "name" => nil}
+    end
+
+    describe "attribute with stringified name" do
+      it "should have stringified key" do
+        @plant.attributes.should include("name")
+      end
     end
   end
   
