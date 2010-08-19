@@ -19,22 +19,5 @@ describe CouchPotato, 'attachments' do
   it "should have an empty array for a new object" do
     Comment.new._attachments.should == {}
   end
-
-  describe "check for dirty" do
-    it "should return true when first attachment added" do
-      comment = Comment.new :title => 'nil'
-      comment._attachments['body'] = {'data' => 'a useful comment', 'content_type' => 'text/plain'}
-      comment.should be_dirty
-    end
-
-    it "should return true when attachment added to the document with other attachments" do
-      comment = Comment.new :title => 'nil'
-      comment._attachments['body'] = {'data' => 'a useful comment', 'content_type' => 'text/plain'}
-      CouchPotato.database.save! comment
-      reloaded_comment = CouchPotato.database.load_document(comment._id)
-      reloaded_comment._attachments['author'] = {'data' => 'famous name', 'content_type' => 'text/plain'}
-      reloaded_comment.should be_dirty
-    end
-  end
   
 end

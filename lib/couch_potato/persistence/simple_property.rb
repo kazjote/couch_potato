@@ -6,7 +6,6 @@ module CouchPotato
       def initialize(owner_clazz, name, options = {})
         self.name = name
         self.type = options[:type]
-        @stringify_name = options.delete(:stringify_name)
         @type_caster = TypeCaster.new
         
         define_accessors accessors_module_for(owner_clazz), name, options
@@ -22,7 +21,7 @@ module CouchPotato
       end
       
       def serialize(json, object)
-        json[@stringify_name ? name.to_s : name] = object.send name
+        json[name] = object.send name
       end
       alias :value :serialize
       
@@ -66,7 +65,6 @@ module CouchPotato
           define_method "#{name}_not_changed" do
             self.instance_variable_set("@#{name}_not_changed", true)
           end
-
         end
       end
     end
