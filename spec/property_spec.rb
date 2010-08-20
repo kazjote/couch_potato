@@ -39,7 +39,7 @@ describe 'properties' do
   it "should return the property names" do
     Comment.property_names.should == [:created_at, :updated_at, :title]
   end
-  
+
   it "should persist a string" do
     c = Comment.new :title => 'my title'
     CouchPotato.database.save_document! c
@@ -109,7 +109,7 @@ describe 'properties' do
     p.ship_address.should === a
   end
   
-  it "should persist null for a null " do
+  it "should persist null for a null" do
     p = Person.new
     p.ship_address = nil
     CouchPotato.database.save_document! p

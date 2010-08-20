@@ -5,6 +5,7 @@ class Plant
   property :leaf_count
   property :typed_leaf_count, :type => Fixnum
   property :typed_leaf_size,  :type => Float
+  property :leaves, :type => Array
 end
 
 describe "attributes" do
@@ -20,7 +21,7 @@ describe "attributes" do
   describe "attributes" do
     it "should return the attributes" do
       plant = Plant.new(:leaf_count => 1)
-      plant.attributes.should == {:leaf_count => 1, :created_at => nil, :updated_at => nil, :typed_leaf_count => nil, :typed_leaf_size => nil}
+      plant.attributes.should == {:leaf_count => 1, :created_at => nil, :updated_at => nil, :typed_leaf_count => nil, :typed_leaf_size => nil, :leaves => nil}
     end
   end
   
@@ -118,6 +119,31 @@ describe "attributes" do
       it "should set the attributes to nil if given a blank string" do
         @plant.typed_leaf_size = ''
         @plant.typed_leaf_size.should be_nil
+      end
+    end
+
+    describe "array" do
+      it "should leave an array as it is" do
+        @plant.leaves = [1,2]
+        @plant.leaves.should == [1,2]
+      end
+
+      it "should leave nil as is" do
+        @plant.leaves = nil
+        @plant.leaves.should be_nil
+      end
+
+      it "should set the attributes to nil if given a blank string" do
+        @plant.leaves = ""
+        @plant.leaves.should be_nil
+      end
+
+      it "should parse an array from json string" do
+        pending
+      end
+
+      it "should raise exception when string not parsable" do
+        pending
       end
     end
   end
