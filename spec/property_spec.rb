@@ -122,7 +122,7 @@ describe 'properties' do
     p.ship_address = nil
     db = mock(:database)
     db.should_receive(:save_doc).with do |attributes|
-      attributes.has_key?(:ship_address).should == true
+      attributes.has_key?("ship_address").should be_true
     end.and_return({})
     CouchPotato.database.stub(:database).and_return(db)
     CouchPotato.database.save_document! p
@@ -267,8 +267,8 @@ describe 'properties' do
     
     it "should return attributes of superclasses" do
       clock = CuckooClock.new(:time => Time.now, :cuckoo => 'bavarian')
-      clock.attributes[:time].should_not == nil
-      clock.attributes[:cuckoo].should == 'bavarian'
+      clock.attributes["time"].should_not be_nil
+      clock.attributes["cuckoo"].should == 'bavarian'
     end
   end
   
