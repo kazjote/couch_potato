@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'active_support/core_ext/hash/indifferent_access.rb'
 require File.dirname(__FILE__) + '/database'
 require File.dirname(__FILE__) + '/persistence/active_model_compliance'
 require File.dirname(__FILE__) + '/persistence/properties'
@@ -74,7 +75,7 @@ module CouchPotato
     #   book = Book.new :year => 2009
     #   book.attributes # => {:title => nil, :year => 2009}
     def attributes
-      self.class.properties.inject({}) do |res, property|
+      self.class.properties.inject(HashWithIndifferentAccess.new) do |res, property|
         property.value(res, self)
         res
       end

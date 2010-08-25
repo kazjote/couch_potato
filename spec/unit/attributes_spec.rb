@@ -25,6 +25,10 @@ describe "attributes" do
     it "should return the attributes" do
       @plant.attributes.should == {"leaf_count" => 1, "created_at" => nil, "updated_at" => nil, "typed_leaf_count" => nil, "typed_leaf_size" => nil, "_attachments" => {}}
     end
+
+    it "should make no difference if retrieved the value by key or string" do
+      @plant.attributes["leaf_count"].should == @plant.attributes[:leaf_count]
+    end
   end
   
   # useful when loading models from custom views
