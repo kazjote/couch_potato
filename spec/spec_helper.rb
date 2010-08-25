@@ -7,7 +7,6 @@ require 'couch_potato'
 
 require 'time'
 require 'active_support/core_ext/object/blank.rb'
-require 'active_support/core_ext/hash/except.rb'
 
 if ENV["RUN_CODE_RUN"]
   CouchPotato::Config.database_name = 'http://langalex.couch.io/couch_potato_test'
